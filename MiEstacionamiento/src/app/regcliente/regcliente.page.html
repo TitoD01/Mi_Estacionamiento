@@ -1,0 +1,22 @@
+<ion-content>
+
+  <h1>Registro de cliente</h1>
+
+  <ion-item>
+    <ion-label position="floating">NOMBRE</ion-label>
+    <ion-input placeholder="Ingrese su nombre" [(ngModel)]="nombre_cli"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">APELLIDO</ion-label>
+    <ion-input placeholder="Ingrese su apellido" [(ngModel)]="apellido_cli"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">RUT</ion-label>
+    <ion-input placeholder="Ingrese su RUT" [(ngModel)]="rut_cli"></ion-input>
+  </ion-item>
+
+  <ion-button expand="full" color="dark" (click)="registrarCliente()">Siguiente</ion-button>
+
+</ion-content>

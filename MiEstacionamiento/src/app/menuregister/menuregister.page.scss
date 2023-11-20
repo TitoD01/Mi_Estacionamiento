@@ -1,0 +1,32 @@
+ion-content {
+  --background: #ffffff;
+}
+
+.welcome-header {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 15% 10%;
+  text-align: center;
+  margin: -5%;
+  font-family: Arial, Helvetica, sans-serif;
+   /* Para compensar el espacio predeterminado del encabezado */
+}
+
+.custom-card {
+  width: 85%;
+  max-width: 400px; /* Ajusta según tus necesidades */
+  margin: 20% auto; /* Separación entre las cards */
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(142, 142, 142, 0.1);
+
+  ion-card-title {
+    font-size: 1.5em;
+    color: #000000;
+  }
+
+  p{
+    color: #696969;
+  }
+}

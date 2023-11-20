@@ -7,6 +7,7 @@ import { AuthService } from '../auth.service';
   templateUrl: 'login.page.html',
   styleUrls: ['login.page.scss'],
 })
+
 export class LoginPage {
   credentials = { nombre_cli: '', rut_cli: '' };
   errorMessage: string = '';

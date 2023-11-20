@@ -1,20 +1,39 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content>
+  <div id="header">
+    <div id="logo">
+      <img src="assets/images/logo_parkiing.png" alt="logo">
+    </div>
   </div>
+
+  <ion-card class="ion-padding">
+    <ion-card-content>
+      <h1>Bienvenido a Víro</h1>
+      <p>Completa la autenticacion para comenzar</p>
+      <ion-button expand="block">Iniciar Sesión</ion-button>
+      <ion-button expand="block" fill="outline">Registrarse</ion-button>
+
+      <div class="line-text">
+        <span class="lines"></span>
+        <span class="text">Siguenos</span>
+      </div>
+
+      <div class="socials">
+        <a href="https://www.facebook.com/DuocUC/" target="_blank">
+        <ion-button class="btn-fb">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </ion-button>
+        </a>
+        <a href="https://twitter.com/DuocUC" target="_blank">
+        <ion-button class="btn-tw">
+          <ion-icon name="logo-twitter"></ion-icon>
+        </ion-button>
+        </a>
+        <a href="https://www.instagram.com/duocuc_puertomontt/" target="_blank">
+        <ion-button class="btn-ins">
+         <ion-icon name="logo-instagram"></ion-icon>
+        </ion-button>
+        </a>
+      </div>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

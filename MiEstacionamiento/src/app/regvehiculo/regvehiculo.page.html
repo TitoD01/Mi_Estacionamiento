@@ -1,0 +1,30 @@
+<ion-content>
+
+  <h1>Registro de vehículo</h1>
+
+  <ion-item>
+    <ion-label position="floating">PATENTE</ion-label>
+    <ion-input placeholder="Ingrese la patente" [(ngModel)]="patente"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">MARCA</ion-label>
+    <ion-select placeholder="Selecciona la marca" [(ngModel)]="marcaId">
+      <ion-select-option *ngFor="let marca of marcas" [value]="marca.id">{{ marca.descripcion }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+
+  <ion-item>
+    <ion-label position="floating">MODELO</ion-label>
+    <ion-input placeholder="Ingrese el modelo del vehículo" [(ngModel)]="modelo"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">AÑO</ion-label>
+    <ion-input type="number" placeholder="Ingrese el año" [(ngModel)]="anno"></ion-input>
+  </ion-item>
+
+  <ion-button expand="full" color="dark" (click)="registrarVehiculo()">Registrar</ion-button>
+
+</ion-content>
