@@ -50,8 +50,7 @@ app.post('/registrarVehiculo', (req, res) => {
     });
 });
 
-
-aapp.get('/search', (req, res) => {
+app.get('/search', (req, res) => {
     const comuna = req.query.comuna;
     const query = 'SELECT estacionamiento.direccion_est, estacionamiento.tarifa_hora, dueno_estacionamiento.nombre_dueno ' +
         'FROM estacionamiento ' +
