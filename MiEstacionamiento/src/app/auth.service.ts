@@ -22,4 +22,10 @@ export class AuthService {
   login(credentials: { nombre_cli: string; rut_cli: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials);
   }
+
+  searchByComuna(comuna: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/search?comuna=${comuna}`);
+  }
+
+
 }
