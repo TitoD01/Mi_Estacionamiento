@@ -1,23 +1,18 @@
-// data.service.ts
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
-  private rutCliente: string = '';
-  private nombreCliente: string = '';
-  private apellidoCliente: string = '';
+  private clienteData: any = {}; // Almacena datos del cliente
 
-  setClienteData(rut: string, nombre: string, apellido: string) {
-    this.rutCliente = rut;
-    this.nombreCliente = nombre;
-    this.apellidoCliente = apellido;
+  constructor() {}
+
+  setClienteData(data: any) {
+    this.clienteData = data;
   }
 
-  getRutCliente(): string {
-    return this.rutCliente;
+  getClienteData() {
+    return this.clienteData;
   }
-
-  // Puedes agregar métodos similares para obtener otros datos del cliente si es necesario
 }

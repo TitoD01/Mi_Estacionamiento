@@ -1,3 +1,5 @@
+<!-- regvehiculo.html -->
+
 <ion-content>
 
   <h1>Registro de vehículo</h1>
@@ -10,10 +12,11 @@
   <ion-item>
     <ion-label position="floating">MARCA</ion-label>
     <ion-select placeholder="Selecciona la marca" [(ngModel)]="marcaId">
-      <ion-select-option *ngFor="let marca of marcas" [value]="marca.id">{{ marca.descripcion }}</ion-select-option>
+      <ion-select-option *ngFor="let marca of marcas" [value]="marca.id_marca">
+        {{ marca.id_marca }} - {{ marca.descripcion }}
+      </ion-select-option>
     </ion-select>
   </ion-item>
-  
 
   <ion-item>
     <ion-label position="floating">MODELO</ion-label>
