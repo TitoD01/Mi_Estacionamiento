@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-menuregister',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuregisterPage implements OnInit {
 
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
   }
 
+  irCliente() {
+    this.navCtrl.navigateForward('/inicio');
+  }
+
+  irDueno() {
+    this.navCtrl.navigateForward('/regcliente');
+  }
 }

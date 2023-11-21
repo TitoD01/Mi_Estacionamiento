@@ -1,4 +1,9 @@
 <ion-content>
+  <div id="header">
+    <div id="logo">
+      <img src="assets/images/logo_parkiing.png" alt="logo">
+    </div>
+  </div>
   <ion-item>
     <ion-label position="floating">Nombre de usuario</ion-label>
     <ion-input [(ngModel)]="credentials.nombre_cli" name="nombre_cli" type="text"></ion-input>
@@ -7,7 +12,7 @@
     <ion-label position="floating">Contraseña</ion-label>
     <ion-input [(ngModel)]="credentials.rut_cli" name="rut_cli" type="password"></ion-input>
   </ion-item>
-  <ion-button expand="full" (click)="login()">Iniciar sesión</ion-button>
+  <ion-button expand="full" color="dark"(click)="login()">Iniciar sesión</ion-button>
   
   
   <div *ngIf="errorMessage" class="error-message">

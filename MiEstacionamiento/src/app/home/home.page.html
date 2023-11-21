@@ -9,13 +9,14 @@
     <ion-card-content>
       <h1>Bienvenido a Víro</h1>
       <p>Completa la autenticacion para comenzar</p>
-      <ion-button expand="block">Iniciar Sesión</ion-button>
-      <ion-button expand="block" fill="outline">Registrarse</ion-button>
+      <ion-button (click)="irLogin()" color="dark" expand="block">Iniciar Sesión</ion-button>
+      <ion-button (click)="irMenuRegister()" color="dark" expand="block" fill="outline" >Registrarse</ion-button>
 
       <div class="line-text">
         <span class="lines"></span>
         <span class="text">Siguenos</span>
       </div>
+
 
       <div class="socials">
         <a href="https://www.facebook.com/DuocUC/" target="_blank">
@@ -30,7 +31,7 @@
         </a>
         <a href="https://www.instagram.com/duocuc_puertomontt/" target="_blank">
         <ion-button class="btn-ins">
-         <ion-icon name="logo-instagram"></ion-icon>
+        <ion-icon name="logo-instagram"></ion-icon>
         </ion-button>
         </a>
       </div>

@@ -1,31 +1,37 @@
 
-<ion-header>
-  <ion-toolbar>
-    <ion-title class="custom-title">
-      Búsqueda Estacionamiento
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<div class="logo-container">
-  <img src="assets/icon/mapa.png" alt="Logo" class="logo">
-</div>
 
-<ion-content class="custom-content ion-padding">
-  
-  <ion-item>
-    <ion-label position="stacked">Comuna</ion-label>
-    <ion-input [(ngModel)]="comuna" name="comuna" type="text"></ion-input>
-  </ion-item>
-  
-  <ion-button class="boton" expand="full" (click)="search()" style=" border-radius : 100px;">Buscar</ion-button>
 
-  <ion-card *ngFor="let result of searchResults">
-    <ion-card-content>
-      <ion-card-title>Dirección: {{ result.direccion_est }}</ion-card-title>
-      <p>Tarifa por Hora: {{ result.tarifa_hora }}</p>
-      <p>Dueño: {{ result.nombre_dueno }}</p>
-    </ion-card-content>
-  </ion-card>
+<ion-content>
+  <h1>      Búsqueda Estacionamiento  </h1>
+
+  <div class="logo-container">
+    <img src="assets/images/mapa.png" alt="Logo" class="logo">
+  </div>
+
+
+  <ion-content class="custom-content ion-padding">
   
+    <ion-item>
+      <ion-label position="stacked">Comuna</ion-label>
+      <ion-input [(ngModel)]="comuna" name="comuna" type="text"></ion-input>
+    </ion-item>
+    
+    <ion-button class="boton" color="dark" expand="full" (click)="search()" style=" border-radius : 100px;">Buscar</ion-button>
+  
+    <ion-card *ngFor="let result of searchResults">
+      <ion-card-content>
+        <ion-card-title>Dirección: {{ result.direccion_est }}</ion-card-title>
+        <p>Tarifa por Hora: {{ result.tarifa_hora }}</p>
+        <p>Dueño: {{ result.nombre_dueno }}</p>
+      </ion-card-content>
+    </ion-card>
+    
+  </ion-content>
+  
+
 </ion-content>
+
+
+
+
