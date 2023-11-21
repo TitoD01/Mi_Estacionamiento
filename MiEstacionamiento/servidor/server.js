@@ -83,6 +83,26 @@ app.get('/marcas', (req, res) => {
     });
   });
 
+  app.post('/login', (req, res) => {
+    const { nombre_cli, rut_cli } = req.body;
+    const query = 'SELECT * FROM cliente WHERE nombre_cli = ? AND rut_cli = ?';
+
+    db.query(query, [nombre_cli, rut_cli], (err, result) => {
+        if (err) {
+            console.error('Error al autenticar:', err);
+            res.status(500).send('Error al autenticar');
+        } else {
+            if (result.length > 0) {
+                // Autenticación exitosa
+                res.json({ message: 'Inicio de sesión exitoso' });
+            } else {
+                // Autenticación fallida
+                res.status(401).send('Credenciales incorrectas');
+            }
+        }
+    });
+});
+
 app.listen(port, () => {
     console.log(`Servidor backend en ejecución en http://localhost:${port}`);
 });
