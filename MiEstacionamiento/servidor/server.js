@@ -41,14 +41,14 @@ app.post('/registrarVehiculo', (req, res) => {
     const { patente, descripcion_modelo, anno, cliente_rut_cli, marca_id_marca } = req.body;
     const query = 'INSERT INTO vehiculo (patente, descripcion_modelo, anno, cliente_rut_cli, marca_id_marca) VALUES (?, ?, ?, ?, ?)';
     db.query(query, [patente, descripcion_modelo, anno, cliente_rut_cli, marca_id_marca], (err, result) => {
-      if (err) {
-        console.error('Error al registrar vehículo:', err);
-        res.status(500).send('Error al registrar vehículo');
-      } else {
-        res.json({ message: 'Vehículo registrado correctamente' });
-      }
+        if (err) {
+            console.error('Error al registrar vehículo:', err);
+            res.status(500).send('Error al registrar vehículo');
+        } else {
+            res.json({ message: 'Vehículo registrado correctamente' });
+        }
     });
-  });
+});
 
 app.get('/search', (req, res) => {
     const comuna = req.query.comuna;
@@ -72,18 +72,18 @@ app.get('/search', (req, res) => {
 
 app.get('/marcas', (req, res) => {
     const query = 'SELECT id_marca, descripcion FROM marca';
-  
-    db.query(query, (err, result) => {
-      if (err) {
-        console.error('Error al obtener las marcas:', err);
-        res.status(500).send('Error al obtener las marcas');
-      } else {
-        res.json(result); // Devuelve el resultado directamente
-      }
-    });
-  });
 
-  app.post('/login', (req, res) => {
+    db.query(query, (err, result) => {
+        if (err) {
+            console.error('Error al obtener las marcas:', err);
+            res.status(500).send('Error al obtener las marcas');
+        } else {
+            res.json(result);
+        }
+    });
+});
+
+app.post('/login', (req, res) => {
     const { nombre_cli, rut_cli } = req.body;
     const query = 'SELECT * FROM cliente WHERE nombre_cli = ? AND rut_cli = ?';
 
@@ -93,10 +93,8 @@ app.get('/marcas', (req, res) => {
             res.status(500).send('Error al autenticar');
         } else {
             if (result.length > 0) {
-                // Autenticación exitosa
                 res.json({ message: 'Inicio de sesión exitoso' });
             } else {
-                // Autenticación fallida
                 res.status(401).send('Credenciales incorrectas');
             }
         }

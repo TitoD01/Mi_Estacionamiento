@@ -14,10 +14,10 @@ export class MenuregisterPage implements OnInit {
   }
 
   irCliente() {
-    this.navCtrl.navigateForward('/inicio');
+    this.navCtrl.navigateForward('/regcliente');
   }
 
   irDueno() {
-    this.navCtrl.navigateForward('/regcliente');
+    this.navCtrl.navigateForward('/');
   }
 }
