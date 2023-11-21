@@ -50,6 +50,26 @@ app.post('/registrarVehiculo', (req, res) => {
     });
   });
 
+app.get('/search', (req, res) => {
+    const comuna = req.query.comuna;
+    const query = 'SELECT estacionamiento.direccion_est, estacionamiento.tarifa_hora, dueno_estacionamiento.nombre_dueno ' +
+        'FROM estacionamiento ' +
+        'JOIN dueno_estacionamiento ON estacionamiento.dueno_estacionamiento_rut_dueno = dueno_estacionamiento.rut_dueno ' +
+        'JOIN comuna ON estacionamiento.comuna_id_comuna = comuna.id_comuna ' +
+        'WHERE comuna.descripcion_comuna = ?';
+
+    db.query(query, [comuna], (err, result) => {
+        if (err) {
+            console.error('Error al realizar la búsqueda:', err);
+            res.status(500).send('Error al realizar la búsqueda');
+        } else {
+            res.json(result);
+        }
+    });
+});
+
+
+
 app.get('/marcas', (req, res) => {
     const query = 'SELECT id_marca, descripcion FROM marca';
   

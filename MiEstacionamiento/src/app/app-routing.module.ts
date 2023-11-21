@@ -30,6 +30,10 @@ const routes: Routes = [
     path: 'regvehiculo',
     loadChildren: () => import('./regvehiculo/regvehiculo.module').then( m => m.RegvehiculoPageModule)
   },
+  {
+    path: 'inicio',
+    loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
+  },
 
 ];
 
