@@ -35,7 +35,15 @@ const routes: Routes = [
   {
     path: 'inicio',
     loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
+  },  {
+    path: 'regdueno',
+    loadChildren: () => import('./regdueno/regdueno.module').then( m => m.RegduenoPageModule)
   },
+  {
+    path: 'regestacionamiento',
+    loadChildren: () => import('./regestacionamiento/regestacionamiento.module').then( m => m.RegestacionamientoPageModule)
+  },
+
 
 ];
 

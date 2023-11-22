@@ -18,6 +18,6 @@ export class MenuregisterPage implements OnInit {
   }
 
   irDueno() {
-    this.navCtrl.navigateForward('/');
+    this.navCtrl.navigateForward('/regdueno');
   }
 }

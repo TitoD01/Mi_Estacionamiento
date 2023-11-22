@@ -8,8 +8,8 @@ const port = 3000;
 
 const db = mysql.createConnection({
     host: 'localhost',
-    user: 'tito',
-    password: 'diaz',
+    user: 'victor',
+    password: 'nano2004',
     database: 'bd_estacionamiento',
 });
 app.use(cors());
@@ -68,8 +68,6 @@ app.get('/search', (req, res) => {
     });
 });
 
-
-
 app.get('/marcas', (req, res) => {
     const query = 'SELECT id_marca, descripcion FROM marca';
 
@@ -97,6 +95,53 @@ app.post('/login', (req, res) => {
             } else {
                 res.status(401).send('Credenciales incorrectas');
             }
+        }
+    });
+});
+
+
+app.get('/comunas', (req, res) => {
+    const query = req.query.query || '';
+    const searchQuery = `%${query}%`;
+    const queryStr = 'SELECT id_comuna, descripcion_comuna FROM comuna WHERE descripcion_comuna LIKE ?';
+  
+    db.query(queryStr, [searchQuery], (err, result) => {
+      if (err) {
+        console.error('Error al realizar la búsqueda de comunas:', err);
+        res.status(500).send('Error al realizar la búsqueda de comunas');
+      } else {
+        // Modifica el resultado para enviar id_comuna y descripcion_comuna
+        const formattedResult = result.map(item => ({ id_comuna: item.id_comuna, descripcion_comuna: item.descripcion_comuna }));
+        res.json(formattedResult);
+      }
+    });
+  });
+  
+
+  app.post('/registrarDuenoEstacionamiento', (req, res) => {
+    const { nombre_dueno, apellido_dueno, rut_dueno } = req.body;
+    const query = 'INSERT INTO dueno_estacionamiento (nombre_dueno, apellido_dueno, rut_dueno) VALUES (?, ?, ?)';
+    
+    db.query(query, [nombre_dueno, apellido_dueno, rut_dueno], (err, result) => {
+        if (err) {
+            console.error('Error al registrar dueño de estacionamiento:', err);
+            res.status(500).send('Error al registrar dueño de estacionamiento');
+        } else {
+            res.json({ message: 'Dueño de estacionamiento registrado correctamente' });
+        }
+    });
+});
+
+app.post('/registrarEstacionamiento', (req, res) => {
+    const { direccion_est, tarifa_hora, dueno_estacionamiento_rut_dueno, comuna_id_comuna } = req.body;
+    const query = 'INSERT INTO estacionamiento (direccion_est, tarifa_hora, dueno_estacionamiento_rut_dueno, comuna_id_comuna) VALUES (?, ?, ?, ?)';
+    
+    db.query(query, [direccion_est, tarifa_hora, dueno_estacionamiento_rut_dueno, comuna_id_comuna], (err, result) => {
+        if (err) {
+            console.error('Error al registrar estacionamiento:', err);
+            res.status(500).send('Error al registrar estacionamiento');
+        } else {
+            res.json({ message: 'Estacionamiento registrado correctamente' });
         }
     });
 });
