@@ -6,6 +6,7 @@ import { debounceTime, switchMap } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
 
 
+
 @Component({
   selector: 'app-regestacionamiento',
   templateUrl: './regestacionamiento.page.html',
@@ -17,6 +18,7 @@ export class RegestacionamientoPage {
   searchControl = new FormControl();
   comunas: any[] = [];
   comunaSeleccionada: any = null;
+
 
   constructor(private http: HttpClient, private dataservice: DataService, private navCtrl: NavController) {
     this.searchControl.valueChanges
@@ -47,7 +49,7 @@ export class RegestacionamientoPage {
   registrarEstacionamiento() {
     // Obtener datos del cliente y dueño del estacionamiento almacenados en el servicio
     const duenoEstacionamientoData = this.dataservice.getDuenoEstacionamientoData();
-
+    this.router.navigate(['/inicio']);
     // Verificar que los datos del cliente y del dueño del estacionamiento estén presentes
     if (!duenoEstacionamientoData) {
       console.error('Error: Faltan datos del dueño del estacionamiento.');
