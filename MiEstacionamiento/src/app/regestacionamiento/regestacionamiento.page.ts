@@ -3,6 +3,7 @@ import { DataService } from '../data.service';
 import { HttpClient } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 import { debounceTime, switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class RegestacionamientoPage {
   comunas: any[] = [];
   comunaSeleccionada: any = null;
 
-  constructor(private http: HttpClient, private dataservice: DataService) {
+  constructor(private http: HttpClient, private dataservice: DataService,  private router: Router) {
     this.searchControl.valueChanges
       .pipe(
         debounceTime(300),
@@ -46,7 +47,7 @@ export class RegestacionamientoPage {
   registrarEstacionamiento() {
     // Obtener datos del cliente y dueño del estacionamiento almacenados en el servicio
     const duenoEstacionamientoData = this.dataservice.getDuenoEstacionamientoData();
-
+    this.router.navigate(['/inicio']);
     // Verificar que los datos del cliente y del dueño del estacionamiento estén presentes
     if (!duenoEstacionamientoData) {
       console.error('Error: Faltan datos del dueño del estacionamiento.');
