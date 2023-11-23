@@ -3,6 +3,7 @@ import { DataService } from '../data.service';
 import { HttpClient } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 import { debounceTime, switchMap } from 'rxjs/operators';
+import { NavController } from '@ionic/angular';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class RegestacionamientoPage {
   comunas: any[] = [];
   comunaSeleccionada: any = null;
 
-  constructor(private http: HttpClient, private dataservice: DataService) {
+  constructor(private http: HttpClient, private dataservice: DataService, private navCtrl: NavController) {
     this.searchControl.valueChanges
       .pipe(
         debounceTime(300),
@@ -72,7 +73,8 @@ export class RegestacionamientoPage {
             this.tarifa_hora = 0;
 
             // Limpiar datos del servicio
-            this.dataservice.clearData();
+            this.dataservice.clearData();            
+            this.navCtrl.navigateForward('/inicio');
           },
           (estacionamientoError) => {
             console.error('Error al registrar estacionamiento:', estacionamientoError);
@@ -85,3 +87,5 @@ export class RegestacionamientoPage {
     );
   }
 }
+
+

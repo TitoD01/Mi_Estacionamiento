@@ -1,21 +1,22 @@
 <!-- regcliente.html -->
-
+<ion-buttons slot="start">
+  <ion-back-button defaultHref="/"></ion-back-button>
+</ion-buttons>
 <ion-content>
-
   <h1>Registro <br> Cliente</h1>
 
   <ion-item>
-    <ion-label position="floating">NOMBRE</ion-label>
+    <ion-label position="stacked">NOMBRE</ion-label> 
     <ion-input placeholder="Ingrese su nombre" [(ngModel)]="nombre_cli"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating">APELLIDO</ion-label>
+    <ion-label position="stacked">APELLIDO</ion-label>
     <ion-input placeholder="Ingrese su apellido" [(ngModel)]="apellido_cli"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating">RUT</ion-label>
+    <ion-label position="stacked">RUT</ion-label>
     <ion-input placeholder="Ingrese su RUT" [(ngModel)]="rut_cli"></ion-input>
   </ion-item>
 

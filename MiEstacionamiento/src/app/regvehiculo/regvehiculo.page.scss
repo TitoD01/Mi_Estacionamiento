@@ -6,6 +6,7 @@ ion-content {
     height: 100vh;
     --ion-background-color: white; /* Fondo blanco */
     color: black; /* Texto negro */
+
   }
   
   h1 {
@@ -33,3 +34,7 @@ ion-content {
     margin: 20% 20%;
   }
   
+  ion-back-button{
+    color: #000000;
+    margin: 5%;
+  }

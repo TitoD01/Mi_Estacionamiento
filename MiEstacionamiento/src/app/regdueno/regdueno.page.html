@@ -1,21 +1,22 @@
 <!-- regdueno.html -->
-
+<ion-buttons slot="start">
+  <ion-back-button defaultHref="/"></ion-back-button>
+</ion-buttons>
 <ion-content>
-
-  <h1>Registro Dueño Estacionamiento</h1>
+  <h1>Registro <br> Dueño <br> Estacionamiento</h1>
 
   <ion-item>
-    <ion-label position="floating">NOMBRE</ion-label>
+    <ion-label position="stacked">NOMBRE</ion-label>
     <ion-input placeholder="Ingrese su nombre" [(ngModel)]="nombre_dueno"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating">APELLIDO</ion-label>
+    <ion-label position="stacked">APELLIDO</ion-label>
     <ion-input placeholder="Ingrese su apellido" [(ngModel)]="apellido_dueno"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating">RUT</ion-label>
+    <ion-label position="stacked">RUT</ion-label>
     <ion-input placeholder="Ingrese su RUT" [(ngModel)]="rut_dueno"></ion-input>
   </ion-item>
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-regvehiculo',
@@ -14,7 +15,7 @@ export class RegvehiculoPage implements OnInit {
   modelo: string = '';
   anno: number = 0;
 
-  constructor(private http: HttpClient, private dataservice: DataService) {}
+  constructor(private http: HttpClient, private dataservice: DataService, private navCtrl: NavController) {}
 
   ngOnInit() {
     this.cargarMarcas();
@@ -66,6 +67,7 @@ export class RegvehiculoPage implements OnInit {
           (vehiculoResult) => {
             console.log('Vehículo registrado correctamente:', vehiculoResult);
             // Restablecer los valores del formulario
+            this.navCtrl.navigateForward('/inicio');
             this.patente = '';
             this.marcaId = 0;
             this.modelo = '';
