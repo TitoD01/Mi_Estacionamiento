@@ -49,7 +49,7 @@ export class RegestacionamientoPage {
   registrarEstacionamiento() {
     // Obtener datos del cliente y dueño del estacionamiento almacenados en el servicio
     const duenoEstacionamientoData = this.dataservice.getDuenoEstacionamientoData();
-    this.router.navigate(['/inicio']);
+    this.navCtrl.navigateForward('/inicio');
     // Verificar que los datos del cliente y del dueño del estacionamiento estén presentes
     if (!duenoEstacionamientoData) {
       console.error('Error: Faltan datos del dueño del estacionamiento.');
@@ -76,7 +76,6 @@ export class RegestacionamientoPage {
 
             // Limpiar datos del servicio
             this.dataservice.clearData();            
-            this.navCtrl.navigateForward('/inicio');
           },
           (estacionamientoError) => {
             console.error('Error al registrar estacionamiento:', estacionamientoError);

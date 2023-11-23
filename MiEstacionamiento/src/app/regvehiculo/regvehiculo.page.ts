@@ -35,7 +35,7 @@ export class RegvehiculoPage implements OnInit {
   registrarVehiculo() {
     // Obtener datos del cliente almacenados en el servicio
     const clienteData = this.dataservice.getClienteData();
-  
+    this.navCtrl.navigateForward('/inicio');
     // Verificar que los datos del cliente estén presentes
     if (!clienteData) {
       console.error('Error: Faltan datos del cliente.');
@@ -67,7 +67,6 @@ export class RegvehiculoPage implements OnInit {
           (vehiculoResult) => {
             console.log('Vehículo registrado correctamente:', vehiculoResult);
             // Restablecer los valores del formulario
-            this.navCtrl.navigateForward('/inicio');
             this.patente = '';
             this.marcaId = 0;
             this.modelo = '';
