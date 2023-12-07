@@ -1,0 +1,59 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Proceso de pago
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-row>
+      
+        <ion-col>
+          <ion-button expand="full" (click)="realizarPago('paypal')">PayPal</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <div class="divider-row">
+        <hr class="divider-line">
+        <p>Tarjeta de credito</p>
+        <hr class="divider-line">
+      </div>
+      <ion-item>
+        <ion-label position="stacked">Nombre del propietario</ion-label>
+        <ion-input [(ngModel)]="nombrePropietario" type="text" placeholder=" Juan Pérez"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Número de tarjeta</ion-label>
+        <ion-input [(ngModel)]="numeroTarjeta" type="text" placeholder=" 1234 5678 9012 3456"></ion-input>
+      </ion-item>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">Fecha de expiración</ion-label>
+            <ion-input [(ngModel)]="fechaExpiracion" type="text" placeholder=" MM/YY"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">CVV</ion-label>
+            <ion-input [(ngModel)]="cvv" type="text" placeholder=" 123"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-button expand="full" (click)="realizarPago('tarjeta')" href="/login" >Pagar con tarjeta</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -43,6 +43,10 @@ const routes: Routes = [
     path: 'regestacionamiento',
     loadChildren: () => import('./regestacionamiento/regestacionamiento.module').then( m => m.RegestacionamientoPageModule)
   },
+  {
+    path: 'formulario',
+    loadChildren: () => import('./formulario/formulario.module').then( m => m.FormularioPageModule)
+  },
 
 
 ];
