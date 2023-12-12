@@ -1,0 +1,45 @@
+<!-- arriendo.html -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Arriendo <br> Estacionamiento</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <!-- Mostrar información del estacionamiento -->
+      <h1>Estacionamiento N° {{ estacionamiento?.id_estacionamiento }}</h1>
+      <p>Dirección: {{ estacionamiento?.direccion_est }}</p>
+      <p>Tarifa por Hora: {{ estacionamiento?.tarifa_hora }}</p>
+      <p>Dueño: {{ estacionamiento?.nombre_dueno }}</p>
+
+      <!-- Seleccionar horario de inicio y término -->
+      <ion-item>
+        <ion-label position="stacked">Horario Inicio</ion-label>
+        <ion-input [(ngModel)]="horarioInicio" type="datetime-local"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Horario Termino</ion-label>
+        <ion-input [(ngModel)]="horarioTermino" type="datetime-local"></ion-input>
+      </ion-item>
+
+      <!-- Seleccionar vehículo -->
+      <ion-item>
+        <ion-label>Vehículo</ion-label>
+        <ion-select [(ngModel)]="selectedVehiculo">
+          <ion-select-option *ngFor="let vehiculo of vehiculos" [value]="vehiculo">
+            {{ vehiculo.patente }} {{ vehiculo.descripcion_modelo }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botón para ir a la página de pago -->
+  <ion-button expand="full" (click)="insertarArriendo()" color="dark" class="boton">Ir a Pagar</ion-button>
+</ion-content>

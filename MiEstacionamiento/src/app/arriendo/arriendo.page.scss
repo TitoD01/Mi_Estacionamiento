@@ -1,0 +1,27 @@
+ion-header{
+    --background: black;
+    ion-toolbar{
+        --background: black;
+        color: white;
+        padding: 20px 0;
+
+        ion-back-button{
+            color: white;
+        }
+    }
+}
+
+ion-card{
+    ion-card-content{
+        color: black;
+
+        ion-item{
+            padding-top: 10px;
+        }
+    }
+}
+
+.boton{
+    padding: 20px;
+    border-radius: 10px;
+}

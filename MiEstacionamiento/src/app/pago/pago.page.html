@@ -1,0 +1,34 @@
+<!-- pago.html -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pago</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- Mostrar información de las tarjetas -->
+  <h3>Selecciona tu tarjeta</h3>
+  <ion-card *ngFor="let tarjeta of tarjetas" (click)="seleccionarTarjeta(tarjeta)" [class.selected]="tarjeta === selectedTarjeta">
+    <ion-card-content>
+      <h2>Tarjeta {{ tarjeta.n_tarjeta }}</h2>
+      <p>Banco: {{ tarjeta.nombre_banco }}</p>
+    </ion-card-content>
+  </ion-card>
+    <ion-button expand="full" class="boton-1" color="dark">+</ion-button>
+
+
+  <ion-card class="card-1">
+    <ion-card-content>
+      <h2>Monto a Pagar</h2>
+      <p>{{ monto | currency: 'CLP':'symbol':'0.0-0' }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botón para realizar el pago -->
+  <ion-button expand="full" (click)="realizarPago()" class="boton" color="dark">Pagar</ion-button>
+</ion-content>

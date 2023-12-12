@@ -1,13 +1,17 @@
 // data.service.ts
 
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
+  private estacionamientoSource = new BehaviorSubject<any>(null);
+  currentEstacionamiento = this.estacionamientoSource.asObservable();
   private clienteData: any = {};
   private duenoEstacionamientoData: any = {};
+  private monto: number = 0; // Nueva variable para almacenar el monto
 
   constructor() {}
 
@@ -28,8 +32,19 @@ export class DataService {
   }
 
   clearData() {
-    // Añadir este método para limpiar los datos cuando sea necesario
     this.clienteData = {};
     this.duenoEstacionamientoData = {};
+  }
+
+  changeEstacionamiento(estacionamiento: any) {
+    this.estacionamientoSource.next(estacionamiento);
+  }
+
+  setMonto(monto: number) {
+    this.monto = monto;
+  }
+
+  getMonto(): number {
+    return this.monto;
   }
 }

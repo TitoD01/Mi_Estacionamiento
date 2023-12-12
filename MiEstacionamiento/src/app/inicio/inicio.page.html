@@ -1,36 +1,40 @@
-<ion-buttons slot="start">
-  <ion-back-button defaultHref="/home"></ion-back-button>
-</ion-buttons>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-  <h1>      Búsqueda Estacionamiento  </h1>
-
+  <h1>Busca un estacionamiento</h1>
+  <h4>{{ welcomeMessage }}</h4>
   <div class="logo-container">
-    <img src="assets/images/mapa.png" alt="Logo" class="logo">
+    <img src="assets/images/mapa.png" alt="Logo" class="logo" />
   </div>
-
-
   <ion-content class="custom-content ion-padding">
-  
     <ion-item>
       <ion-label position="stacked">Comuna</ion-label>
       <ion-input [(ngModel)]="comuna" name="comuna" type="text"></ion-input>
     </ion-item>
-    
-    <ion-button class="boton" color="dark" expand="full" (click)="search()" style=" border-radius : 100px;">Buscar</ion-button>
-  
-    <ion-card *ngFor="let result of searchResults">
+
+    <ion-button
+      class="boton"
+      color="dark"
+      expand="full"
+      (click)="search()"
+      style="border-radius: 100px;"
+    >
+      Buscar
+    </ion-button>
+
+    <ion-card *ngFor="let result of searchResults" (click)="navigateToArriendo(result)">
       <ion-card-content>
-        <ion-card-title>Dirección: {{ result.direccion_est }}</ion-card-title>
-        <p>Tarifa por Hora: {{ result.tarifa_hora }}</p>
-        <p>Dueño: {{ result.nombre_dueno }}</p>
+        <ion-card-title>Dirección: {{ result?.direccion_est }}</ion-card-title>
+        <p>ID {{ result?.id_estacionamiento }}</p>
+        <p>Tarifa por Hora: {{ result?.tarifa_hora }}</p>
+        <p>Dueño: {{ result?.nombre_dueno }}</p>
       </ion-card-content>
     </ion-card>
-    
+
   </ion-content>
-  
-
 </ion-content>
-
-
-
-

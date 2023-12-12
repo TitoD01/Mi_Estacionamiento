@@ -1,43 +1,73 @@
-ion-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    --ion-background-color: white;
-    /* Fondo blanco */
-    color: black;
-    /* Texto negro */
+// INICIO.SCSS
 
+ion-header {
+  ion-toolbar {
+    --background: black; // Fondo negro en el header
+    color: white; // Texto blanco en el header
+
+  }
+}
+
+ion-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  --ion-background-color: white; 
+  color: white; // Texto blanco
 }
 
 .logo-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .logo {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
+  width: 350px;
+  height: auto;
+  border-radius: 10px;
 }
 
 h1 {
-    color: black;
-    /* Texto negro */
-    text-align: center;
-    padding: 10%;
-    font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  padding: 10%;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 ion-item {
-    --ion-text-color: black;
-    /* Texto negro */
-    padding: 5px 10%;
+  --ion-text-color: black; // Texto blanco
+  padding: 5px 10%;
 }
 
-ion-back-button{
-    color: #000000;
-    margin: 5%;
+ion-back-button {
+  color: white; // Flecha de retroceso en blanco
+  margin: 5%;
+}
+
+ion-menu-button{
+  color: white;
+}
+
+ion-card {
+  margin-bottom: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
   }
+
+  ion-card-content {
+    background-color: white; // Fondo negro
+    color: black; // Texto blanco
+  }
+
+  ion-card-title {
+    font-weight: bold;
+  }
+}
+
+

@@ -52,7 +52,7 @@ app.post('/registrarVehiculo', (req, res) => {
 
 app.get('/search', (req, res) => {
     const comuna = req.query.comuna;
-    const query = 'SELECT estacionamiento.direccion_est, estacionamiento.tarifa_hora, dueno_estacionamiento.nombre_dueno ' +
+    const query = 'SELECT estacionamiento.id_estacionamiento,estacionamiento.direccion_est, estacionamiento.tarifa_hora, dueno_estacionamiento.nombre_dueno ' +
         'FROM estacionamiento ' +
         'JOIN dueno_estacionamiento ON estacionamiento.dueno_estacionamiento_rut_dueno = dueno_estacionamiento.rut_dueno ' +
         'JOIN comuna ON estacionamiento.comuna_id_comuna = comuna.id_comuna ' +
@@ -82,18 +82,34 @@ app.get('/marcas', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    const { nombre_cli, rut_cli } = req.body;
-    const query = 'SELECT * FROM cliente WHERE nombre_cli = ? AND rut_cli = ?';
+    const { nombre_usuario, rut } = req.body;
+    const queryCliente = 'SELECT * FROM cliente WHERE nombre_cli = ? AND rut_cli = ?';
+    const queryDuenoEstacionamiento = 'SELECT * FROM dueno_estacionamiento WHERE nombre_dueno = ? AND rut_dueno = ?';
 
-    db.query(query, [nombre_cli, rut_cli], (err, result) => {
-        if (err) {
-            console.error('Error al autenticar:', err);
+    db.query(queryCliente, [nombre_usuario, rut], (errCliente, resultCliente) => {
+        if (errCliente) {
+            console.error('Error al autenticar cliente:', errCliente);
             res.status(500).send('Error al autenticar');
         } else {
-            if (result.length > 0) {
-                res.json({ message: 'Inicio de sesión exitoso' });
+            if (resultCliente.length > 0) {
+                // Cliente encontrado, devuelve el tipo de usuario
+                res.json({ message: 'Inicio de sesión exitoso', user: resultCliente[0], tipoUsuario: 'cliente', rut: resultCliente[0].rut_cli });
             } else {
-                res.status(401).send('Credenciales incorrectas');
+                // No encontrado en cliente, intenta buscar en dueno_estacionamiento
+                db.query(queryDuenoEstacionamiento, [nombre_usuario, rut], (errDueno, resultDueno) => {
+                    if (errDueno) {
+                        console.error('Error al autenticar dueño de estacionamiento:', errDueno);
+                        res.status(500).send('Error al autenticar');
+                    } else {
+                        if (resultDueno.length > 0) {
+                            // Dueño de estacionamiento encontrado, devuelve el tipo de usuario
+                            res.json({ message: 'Inicio de sesión exitoso', user: resultDueno[0], tipoUsuario: 'dueno_estacionamiento' });
+                        } else {
+                            // No encontrado en cliente ni en dueño_estacionamiento
+                            res.status(401).send('Credenciales incorrectas');
+                        }
+                    }
+                });
             }
         }
     });
@@ -146,6 +162,89 @@ app.post('/registrarEstacionamiento', (req, res) => {
     });
 });
 
+app.get('/vehiculos/:rutCliente', (req, res) => {
+    const rutCliente = req.params.rutCliente;
+    const query = 'SELECT patente, descripcion_modelo FROM vehiculo WHERE cliente_rut_cli = ?';
+
+    db.query(query, [rutCliente], (err, result) => {
+        if (err) {
+            console.error('Error al obtener vehículos:', err);
+            res.status(500).send('Error al obtener vehículos');
+        } else {
+            res.json(result);
+        }
+    });
+});
+
+app.get('/tarjetas/:rutCliente', (req, res) => {
+    const rutCliente = req.params.rutCliente;
+    const query = 'SELECT ta.n_tarjeta, ba.nombre_banco FROM tarjeta ta INNER JOIN banco ba ON ta.banco_id_banco = ba.id_banco WHERE ta.cliente_rut_cli = ?';
+  
+    db.query(query, [rutCliente], (err, result) => {
+      if (err) {
+        console.error('Error al obtener tarjetas:', err);
+        res.status(500).send('Error al obtener tarjetas');
+      } else {
+        res.json(result);
+      }
+    });
+  });
+
+  app.post('/insertarArriendo', (req, res) => {
+    const { horarioInicio, horarioTermino, vehiculoPatente, estacionamientoId } = req.body;
+    const query = 'INSERT INTO arriendo (fecha_inicio, fecha_termino, vehiculo_patente, estacionamiento_id_estacionamiento) VALUES (?, ?, ?, ?)';
+  
+    db.query(query, [horarioInicio, horarioTermino, vehiculoPatente, estacionamientoId], (err, result) => {
+      if (err) {
+        console.error('Error al insertar arriendo:', err);
+        res.status(500).send('Error al insertar arriendo');
+      } else {
+        res.json({ message: 'Arriendo registrado correctamente' });
+      }
+    });
+  });
+
+// Añade este nuevo endpoint en server.js
+app.get('/obtenerUltimoArriendoId', (req, res) => {
+    const query = 'SELECT LAST_INSERT_ID() as id_arriendo';
+    db.query(query, (err, result) => {
+        if (err) {
+            console.error('Error al obtener el último id_arriendo:', err);
+            res.status(500).send('Error al obtener el último id_arriendo');
+        } else {
+            res.json(result[0]);
+        }
+    });
+});
+
+// Modifica el endpoint de realizarPago en server.js
+app.post('/realizarPago', (req, res) => {
+    const { detalle_pago } = req.body;
+    
+    // Obtén el último id_arriendo
+    db.query('SELECT LAST_INSERT_ID() as id_arriendo', (err, result) => {
+        if (err) {
+            console.error('Error al obtener el último id_arriendo:', err);
+            res.status(500).send('Error al obtener el último id_arriendo');
+        } else {
+            const arriendo_id_arriendo = result[0].id_arriendo;
+
+            // Continúa con la inserción en la tabla pago
+            const query = 'INSERT INTO pago (fecha_pago, detalle_pago, arriendo_id_arriendo) VALUES (NOW(), ?, ?)';
+            db.query(query, [detalle_pago, arriendo_id_arriendo], (err, result) => {
+                if (err) {
+                    console.error('Error al realizar el pago:', err);
+                    res.status(500).send('Error al realizar el pago');
+                } else {
+                    res.json({ message: 'Pago realizado correctamente' });
+                }
+            });
+        }
+    });
+});
+
 app.listen(port, () => {
     console.log(`Servidor backend en ejecución en http://localhost:${port}`);
 });
+
+
