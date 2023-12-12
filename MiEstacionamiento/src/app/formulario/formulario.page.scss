@@ -1,0 +1,62 @@
+ion-card {
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+ion-back-button {
+    --color: #000;  /* Color del ícono del botón de retroceso */
+}
+ion-card-header {
+    display: flex;
+    justify-content: space-around;
+}
+
+ion-button {
+    --background: #000 !important;
+    color: #fff !important;
+    transition: background-color 0.3s ease;
+
+    &:active {
+        --background: #333 !important;
+    }
+}
+
+ion-label {
+    color: #000;
+}
+
+ion-item {
+    margin-top: 10px;
+}
+
+ion-input {
+    border: 1px solid #000;
+    color: #000;
+}
+
+/* Estilo adicional para el botón de Apple Pay */
+ion-button.apple-pay {
+    --background: #000 !important;
+    color: #fff !important;
+}
+
+ion-button.paypal {
+    --background: #003087 !important;
+    color: #fff !important;
+}
+
+.divider-row {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.divider-line {
+    border-top: 1px solid #000;
+}
+
+.divider-text {
+    color: #000;
+    padding: 0 10px;
+}
