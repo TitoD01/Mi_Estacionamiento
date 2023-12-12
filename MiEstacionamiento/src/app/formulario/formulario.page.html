@@ -25,7 +25,7 @@
 
       <ion-item>
         <ion-label position="stacked">Número de tarjeta</ion-label>
-        <ion-input [(ngModel)]="numeroTarjeta" (ionInput)="formatoNumeroTarjeta()" [disabled]="numeroTarjeta.length === 16"></ion-input>
+        <ion-input [(ngModel)]="numeroTarjeta" (ionInput)="formatoNumeroTarjeta()" [disabled]="numeroTarjeta.length === 19"placeholder=" 1111 1111 1111 1111"></ion-input>
       </ion-item>
       
 
@@ -33,7 +33,7 @@
         <ion-col>
           <ion-item>
             <ion-label position="stacked">Fecha de expiración</ion-label>
-            <ion-input [(ngModel)]="fechaExpiracion" (ionInput)="formatoFechaExpiracion($event)"></ion-input>
+            <ion-input [(ngModel)]="fechaExpiracion" (ionInput)="formatoFechaExpiracion($event)" placeholder=" 10/24"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col>
