@@ -3,9 +3,7 @@ import { DataService } from '../data.service';
 import { HttpClient } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 import { debounceTime, switchMap } from 'rxjs/operators';
-import { NavController } from '@ionic/angular';
-
-
+import { NavController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-regestacionamiento',
@@ -19,8 +17,12 @@ export class RegestacionamientoPage {
   comunas: any[] = [];
   comunaSeleccionada: any = null;
 
-
-  constructor(private http: HttpClient, private dataservice: DataService, private navCtrl: NavController) {
+  constructor(
+    private http: HttpClient,
+    private dataservice: DataService,
+    private navCtrl: NavController,
+    private alertController: AlertController
+  ) {
     this.searchControl.valueChanges
       .pipe(
         debounceTime(300),
@@ -36,57 +38,57 @@ export class RegestacionamientoPage {
   }
 
   seleccionarComuna(comuna: any) {
-    // Almacena la comuna seleccionada
     this.comunaSeleccionada = comuna;
-
-    // Establece el valor del searchControl con un guion para que no filtre nada
     this.searchControl.setValue('-');
-
-    // Limpia la lista de comunas
     this.comunas = [];
   }
 
+  async presentDireccionErrorAlert() {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'La dirección debe tener entre 3 y 30 caracteres.',
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
+
   registrarEstacionamiento() {
-    // Obtener datos del cliente y dueño del estacionamiento almacenados en el servicio
-    const duenoEstacionamientoData = this.dataservice.getDuenoEstacionamientoData();
-    this.navCtrl.navigateForward('/inicio');
-    // Verificar que los datos del cliente y del dueño del estacionamiento estén presentes
-    if (!duenoEstacionamientoData) {
-      console.error('Error: Faltan datos del dueño del estacionamiento.');
+    // Validar la dirección
+    if (!this.validarDireccion()) {
+      this.presentDireccionErrorAlert();
       return;
     }
 
-    // Realizar el INSERT INTO en la tabla 'dueno_estacionamiento' antes que el de 'estacionamiento'
-    this.http.post('http://localhost:3000/registrarDuenoEstacionamiento', duenoEstacionamientoData).subscribe(
-      (duenoResult) => {
-        console.log('Dueño del estacionamiento registrado correctamente:', duenoResult);
+    // Obtener datos del cliente y dueño del estacionamiento almacenados en el servicio
+    const duenoEstacionamientoData = this.dataservice.getDuenoEstacionamientoData();
+    this.navCtrl.navigateForward('/inicio');
 
-        // Realizar el INSERT INTO en la tabla 'estacionamiento' después de registrar el dueño del estacionamiento
-        this.http.post('http://localhost:3000/registrarEstacionamiento', {
-          direccion_est: this.direccion_est,
-          tarifa_hora: this.tarifa_hora,
-          dueno_estacionamiento_rut_dueno: duenoEstacionamientoData.rut_dueno,
-          comuna_id_comuna: this.comunaSeleccionada.id_comuna,
-        }).subscribe(
-          (estacionamientoResult) => {
-            console.log('Estacionamiento registrado correctamente:', estacionamientoResult);
-            // Restablecer los valores del formulario
-            this.direccion_est = '';
-            this.tarifa_hora = 0;
+    // Resto del código...
 
-            // Limpiar datos del servicio
-            this.dataservice.clearData();            
-          },
-          (estacionamientoError) => {
-            console.error('Error al registrar estacionamiento:', estacionamientoError);
-          }
-        );
+    // Realizar el INSERT INTO en la tabla 'estacionamiento' después de registrar el dueño del estacionamiento
+    this.http.post('http://localhost:3000/registrarEstacionamiento', {
+      direccion_est: this.direccion_est,
+      tarifa_hora: this.tarifa_hora,
+      dueno_estacionamiento_rut_dueno: duenoEstacionamientoData.rut_dueno,
+      comuna_id_comuna: this.comunaSeleccionada.id_comuna,
+    }).subscribe(
+      (estacionamientoResult) => {
+        console.log('Estacionamiento registrado correctamente:', estacionamientoResult);
+        // Restablecer los valores del formulario
+        this.direccion_est = '';
+        this.tarifa_hora = 0;
+
+        // Limpiar datos del servicio
+        this.dataservice.clearData();
       },
-      (duenoError) => {
-        console.error('Error al registrar dueño del estacionamiento:', duenoError);
+      (estacionamientoError) => {
+        console.error('Error al registrar estacionamiento:', estacionamientoError);
       }
     );
   }
+
+  validarDireccion(): boolean {
+    return this.direccion_est.length >= 3 && this.direccion_est.length <= 30;
+  }
 }
-
-
