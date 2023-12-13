@@ -1,0 +1,33 @@
+ion-header{
+    --background: black;
+    ion-toolbar{
+        --background: black;
+        color: white;
+        padding: 20px 0;
+
+        ion-back-button{
+            color: white;
+        }
+    }
+}
+
+ion-list {
+    text-align: center; /* Centrar el texto dentro del ion-list */
+  }
+  
+  /* Estilo para el ion-list-header dentro del ion-list */
+  ion-list ion-list-header {
+    text-align: center; /* Centrar el texto dentro del ion-list-header */
+  }
+  
+  /* Estilo para los ion-item dentro del ion-list */
+  ion-list ion-item {
+    text-align: left; /* Alinear el texto a la izquierda dentro del ion-item */
+  }
+  
+  /* Estilo para el ion-button */
+  ion-button {
+    display: block;
+    margin: 50px auto 0; /* Separación top de 20px, centrado horizontalmente */
+    width: 130px;
+  }

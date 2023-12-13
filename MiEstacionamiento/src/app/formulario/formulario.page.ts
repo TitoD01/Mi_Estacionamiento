@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AuthService } from '../auth.service';
+
 
 @Component({
   selector: 'app-formulario',
@@ -13,11 +15,14 @@ export class FormularioPage {
   numeroTarjeta: string = '';
   fechaExpiracion: string = '';
   cvv: string = '';
-
-  constructor(private router: Router, private alertController: AlertController) {}
+  bancos: any[] = [];
+  selectedBanco: any;
+  constructor(private router: Router, private alertController: AlertController, private authService: AuthService) {    
+    this.obtenerBancos();
+  }
 
   private validarTarjeta(): boolean {
-    const numTarjetaRegex = /^\d{20}$/; // Cambiado a 16 dígitos
+    const numTarjetaRegex = /^\d{16}$/; // Cambiado a 16 dígitos
     const fechaExpiracionRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
     const cvvRegex = /^\d{3}$/;
     const nombreRegex = /^[a-zA-Z]{2,20}\s[a-zA-Z]{2,20}$/;
@@ -39,34 +44,47 @@ export class FormularioPage {
     await alert.present();
   }
 
-  formatoFechaExpiracion(event: any) {
-    if (event.inputType === 'deleteContentBackward') {
-      this.fechaExpiracion = '';
-      return;
-    }
 
-    this.fechaExpiracion = this.fechaExpiracion.replace(/[^\d]/g, '');
-
-    if (this.fechaExpiracion.length > 4) {
-      this.fechaExpiracion = this.fechaExpiracion.slice(0, 4);
-    }
-
-    if (this.fechaExpiracion.length >= 2) {
-      this.fechaExpiracion = this.fechaExpiracion.substring(0, 2) + '/' + this.fechaExpiracion.substring(2);
-    }
-  }
 
   formatoNumeroTarjeta() {
     // Eliminar espacios y caracteres no numéricos
     this.numeroTarjeta = this.numeroTarjeta.replace(/[^\d]/g, '');
   
-    // Agregar espacios cada 4 caracteres
-    this.numeroTarjeta = this.numeroTarjeta.replace(/(\d{4})(?=\d)/g, '$1 ');
   
     // Limitar a un máximo de 20 caracteres
     if (this.numeroTarjeta.length > 20) {
       this.numeroTarjeta = this.numeroTarjeta.slice(0, 20);
     }
+  }
+
+  obtenerBancos() {
+    this.authService.getBancos().subscribe(
+      (data: any[]) => {
+        this.bancos = data;
+      },
+      error => {
+        console.error('Error al obtener bancos:', error);
+      }
+    );
+  }
+
+  agregarTarjeta() {
+      const { numeroTarjeta, cvv, fechaExpiracion } = this;
+      const clienteRut = this.authService.getCurrentUser().rut_cli;
+      const bancoId = this.selectedBanco;
+  
+      this.authService.insertarTarjeta(numeroTarjeta, cvv, fechaExpiracion, clienteRut, bancoId).subscribe(
+        (response) => {
+          console.log('Tarjeta agregada correctamente:', response);
+          // Puedes mostrar una alerta o redirigir a otra página después de agregar la tarjeta
+          this.mostrarAlerta('Éxito', 'Tarjeta agregada correctamente');
+          this.router.navigate(['/inicio']);
+        },
+        (error) => {
+          console.error('Error al agregar tarjeta:', error);
+          this.mostrarAlerta('Error', 'Hubo un error al agregar la tarjeta. Por favor, intenta nuevamente.');
+        }
+      );
   }
   
 }

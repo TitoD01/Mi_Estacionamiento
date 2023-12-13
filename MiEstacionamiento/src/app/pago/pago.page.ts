@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService, Tarjeta } from '../auth.service';
 import { DataService } from '../data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pago',
@@ -21,7 +22,8 @@ export class PagoPage implements OnInit {
   constructor(
     private authService: AuthService,
     private dataService: DataService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -98,5 +100,9 @@ export class PagoPage implements OnInit {
     const day = ('0' + date.getDate()).slice(-2);
 
     return `${year}-${month}-${day}`;
+  }
+
+  irNewtarjeta(){
+    this.router.navigate(['/formulario']);
   }
 }

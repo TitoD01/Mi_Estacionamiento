@@ -30,7 +30,7 @@
         <ion-col>
           <ion-item>
             <ion-label position="stacked">Fecha de expiración</ion-label>
-            <ion-input [(ngModel)]="fechaExpiracion" (ionInput)="formatoFechaExpiracion($event)"></ion-input>
+            <ion-input [(ngModel)]="fechaExpiracion"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col>
@@ -41,8 +41,15 @@
         </ion-col>
       </ion-row>
 
+      <ion-item>
+        <ion-label position="stacked">Banco</ion-label>
+        <ion-select [(ngModel)]="selectedBanco">
+          <ion-select-option *ngFor="let banco of bancos" [value]="banco.id_banco">{{ banco.nombre_banco }}</ion-select-option>
+        </ion-select>
+      </ion-item>
 
-      <ion-button expand="full" class="boton">Agregar tarjeta</ion-button>
+
+  <ion-button expand="full" class="boton" (click)="agregarTarjeta()" color="dark">Agregar tarjeta</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

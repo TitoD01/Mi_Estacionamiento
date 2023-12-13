@@ -165,5 +165,61 @@ getTarjetasUsuarioActual(): Observable<Tarjeta[]> {
       })
     );
 }
+
+getBancos(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/bancos`)
+    .pipe(
+      catchError(error => {
+        console.error('Error al obtener bancos:', error);
+        throw error;
+      })
+    );
+}
+
+insertarTarjeta(numeroTarjeta: string, cvv: string, fechaExpiracion: string, clienteRut: string, bancoId: number): Observable<any> {
+  const body = {
+    numeroTarjeta,
+    cvv,
+    fechaExpiracion,
+    clienteRut,
+    bancoId,
+  };
+
+  return this.http.post(`${this.apiUrl}/insertarTarjeta`, body)
+    .pipe(
+      tap((response: any) => {
+        console.log('Respuesta de inserción de tarjeta:', response);
+      }),
+      catchError(error => {
+        console.error('Error en la inserción de tarjeta:', error);
+        throw error;
+      })
+    );
+}
+
+getVehiculosUsuarioActual(): Observable<any[]> {
+  const rutCliente = this.user.rut_cli;
+
+  return this.http.get<any[]>(`${this.apiUrl}/vehiculos/${rutCliente}`)
+    .pipe(
+      catchError(error => {
+        console.error('Error al obtener vehículos del usuario:', error);
+        throw error;
+      })
+    );
+}
+
+getEstacionamientosUsuarioActual(): Observable<any[]> {
+  const rutDuenoEstacionamiento = this.user.rut_dueno;
+
+  return this.http.get<any[]>(`${this.apiUrl}/estacionamientos/${rutDuenoEstacionamiento}`)
+    .pipe(
+      catchError(error => {
+        console.error('Error al obtener estacionamientos del usuario:', error);
+        throw error;
+      })
+    );
+}
+
 }
 

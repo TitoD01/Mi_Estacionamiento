@@ -11,6 +11,7 @@ export class DataService {
   currentEstacionamiento = this.estacionamientoSource.asObservable();
   private clienteData: any = {};
   private duenoEstacionamientoData: any = {};
+  private rutDueno: string = '';
   private monto: number = 0; // Nueva variable para almacenar el monto
 
   constructor() {}
@@ -46,5 +47,13 @@ export class DataService {
 
   getMonto(): number {
     return this.monto;
+  }
+
+  setRutDueno(rut: string) {
+    this.rutDueno = rut;
+  }
+
+  getRutDueno(): string {
+    return this.rutDueno;
   }
 }

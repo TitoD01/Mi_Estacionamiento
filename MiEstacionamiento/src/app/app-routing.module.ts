@@ -67,6 +67,14 @@ const routes: Routes = [
     path: 'productos',
     loadChildren: () => import('./productos/productos.module').then( m => m.ProductosPageModule)
   },
+  {
+    path: 'regest',
+    loadChildren: () => import('./regest/regest.module').then( m => m.RegestPageModule)
+  },
+  {
+    path: 'regvehi',
+    loadChildren: () => import('./regvehi/regvehi.module').then( m => m.RegvehiPageModule)
+  },
 
 ];
 

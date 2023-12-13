@@ -243,6 +243,52 @@ app.post('/realizarPago', (req, res) => {
     });
 });
 
+app.get('/bancos', (req, res) => {
+    const query = 'SELECT id_banco, nombre_banco FROM banco';
+
+    db.query(query, (err, result) => {
+        if (err) {
+            console.error('Error al obtener la lista de bancos:', err);
+            res.status(500).send('Error al obtener la lista de bancos');
+        } else {
+            res.json(result);
+        }
+    });
+});
+
+app.post('/insertarTarjeta', (req, res) => {
+    const { numeroTarjeta, cvv, fechaExpiracion, clienteRut, bancoId } = req.body;
+    const query = 'INSERT INTO tarjeta (n_tarjeta, cvv, fecha_vencimiento, cliente_rut_cli, banco_id_banco) VALUES (?, ?, ?, ?, ?)';
+    
+    db.query(query, [numeroTarjeta, cvv, fechaExpiracion, clienteRut, bancoId], (err, result) => {
+      if (err) {
+        console.error('Error al insertar tarjeta:', err);
+        res.status(500).send('Error al insertar tarjeta');
+      } else {
+        res.json({ message: 'Tarjeta insertada correctamente' });
+      }
+    });
+  });
+
+  app.get('/estacionamientos/:rutDuenoEstacionamiento', (req, res) => {
+    const rutDuenoEstacionamiento = req.params.rutDuenoEstacionamiento;
+    const query = 'SELECT id_estacionamiento, direccion_est, tarifa_hora, due.nombre_dueno, due.apellido_dueno, co.descripcion_comuna ' +
+        'FROM estacionamiento es ' +
+        'INNER JOIN dueno_estacionamiento due ON es.dueno_estacionamiento_rut_dueno=due.rut_dueno ' +
+        'INNER JOIN comuna co ON es.comuna_id_comuna=co.id_comuna ' +
+        'WHERE due.rut_dueno = ?';
+
+    db.query(query, [rutDuenoEstacionamiento], (err, result) => {
+        if (err) {
+            console.error('Error al obtener estacionamientos:', err);
+            res.status(500).send('Error al obtener estacionamientos');
+        } else {
+            res.json(result);
+        }
+    });
+});
+
+
 app.listen(port, () => {
     console.log(`Servidor backend en ejecución en http://localhost:${port}`);
 });

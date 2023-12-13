@@ -24,7 +24,7 @@
           <ion-label>Nro tarjeta {{ tarjeta.n_tarjeta }}</ion-label>
           <p>{{ tarjeta.nombre_banco }}</p>
       </ion-list>
-      <ion-button color="dark" class="boton-1" click()="irNuevatarjeta()">+</ion-button>
+      <ion-button color="dark" class="boton-1" (click)="irNuevatarjeta()">+</ion-button>
       <ion-button (click)="irProductos()" color="dark" class="boton">Mis productos</ion-button>
     </ion-card-content>
   </ion-card>

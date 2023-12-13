@@ -1,13 +1,27 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>productos</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Productos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">productos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <ion-list *ngIf="vehiculos.length > 0">
+    <ion-list-header>Vehículos</ion-list-header>
+    <ion-item *ngFor="let vehiculo of vehiculos">
+      {{ vehiculo.patente }} - {{ vehiculo.descripcion_modelo }}
+    </ion-item>
+    <ion-button (click)="irNewvehiculo()">Nuevo vehículo</ion-button>
+  </ion-list>
+
+  <ion-list *ngIf="estacionamientos.length > 0">
+    <ion-list-header>Estacionamientos</ion-list-header>
+    <ion-item *ngFor="let estacionamiento of estacionamientos">
+      {{ estacionamiento.id_estacionamiento }} - {{ estacionamiento.direccion_est }} | {{ estacionamiento.descripcion_comuna }}
+    </ion-item>
+    <ion-button (click)="irNewest()" color="dark">Nuevo estacionamiento</ion-button>
+  </ion-list>
 </ion-content>
