@@ -58,6 +58,6 @@ export class RegclientePage implements OnInit {
 
   validarRut(): boolean {
     // Asumiendo que el RUT no puede ser más largo de 9 caracteres
-    return this.rut_cli.length <= 9;
+    return this.rut_cli.length <= 10;
   }
 }

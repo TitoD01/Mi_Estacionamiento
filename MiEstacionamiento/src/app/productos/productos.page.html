@@ -14,7 +14,7 @@
     <ion-item *ngFor="let vehiculo of vehiculos">
       {{ vehiculo.patente }} - {{ vehiculo.descripcion_modelo }}
     </ion-item>
-    <ion-button (click)="irNewvehiculo()">Nuevo vehículo</ion-button>
+    <ion-button (click)="irNewvehiculo()" color="dark">Nuevo vehículo</ion-button>
   </ion-list>
 
   <ion-list *ngIf="estacionamientos.length > 0">

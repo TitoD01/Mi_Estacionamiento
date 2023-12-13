@@ -17,6 +17,8 @@ export class FormularioPage {
   cvv: string = '';
   bancos: any[] = [];
   selectedBanco: any;
+  user: any;
+
   constructor(private router: Router, private alertController: AlertController, private authService: AuthService) {    
     this.obtenerBancos();
   }
@@ -70,7 +72,8 @@ export class FormularioPage {
 
   agregarTarjeta() {
       const { numeroTarjeta, cvv, fechaExpiracion } = this;
-      const clienteRut = this.authService.getCurrentUser().rut_cli;
+      this.user = this.authService.getCurrentUser();
+      const clienteRut = this.user.rut_cli;
       const bancoId = this.selectedBanco;
   
       this.authService.insertarTarjeta(numeroTarjeta, cvv, fechaExpiracion, clienteRut, bancoId).subscribe(

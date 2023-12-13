@@ -78,6 +78,7 @@ export class PagoPage implements OnInit {
       .subscribe(
         (response) => {
           console.log('Pago realizado exitosamente:', response);
+          this.router.navigate(['/inicio']);
           // Puedes realizar alguna acción adicional después del pago, como navegar a otra página
         },
         (error) => {

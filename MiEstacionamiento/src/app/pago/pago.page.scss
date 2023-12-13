@@ -34,3 +34,16 @@ ion-content{
 .card-1{
     margin-top: 50px
 }
+
+ion-card {
+    cursor: pointer; // Cambia el cursor al hacer hover sobre la tarjeta
+    transition: border 0.3s; // Agrega una transición suave al borde
+  
+    &.selected {
+      border: 2px solid green; // Establece el borde verde para la tarjeta seleccionada
+    }
+  
+    &:hover {
+      border: 2px solid #007bff; // Establece el borde azul al hacer hover sobre la tarjeta
+    }
+  }

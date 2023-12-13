@@ -8,8 +8,8 @@ const port = 3000;
 
 const db = mysql.createConnection({
     host: 'localhost',
-    user: 'tito',
-    password: 'diaz',
+    user: 'victor',
+    password: 'nano2004',
     database: 'bd_estacionamiento',
 });
 app.use(cors());

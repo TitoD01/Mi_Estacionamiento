@@ -52,6 +52,6 @@ export class RegduenoPage {
 
   validarRut(): boolean {
     // Asumiendo que el RUT no puede ser más largo de 9 caracteres
-    return this.rut_dueno.length <= 9;
+    return this.rut_dueno.length <= 10;
   }
 }
