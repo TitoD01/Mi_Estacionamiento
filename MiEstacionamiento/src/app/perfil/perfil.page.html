@@ -1,0 +1,31 @@
+<!-- perfil.page.html -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card *ngIf="user">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-label>{{user.nombre_cli}} {{user.apellido_cli}} {{user.nombre_dueno}} {{user.apellido_dueno}}</ion-label>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label>Rut: {{user.rut_cli}} {{user.rut_dueno}}</ion-label>
+      <h1>Mis tarjetas</h1>
+      <ion-list *ngFor="let tarjeta of tarjetas">
+          <ion-label>Nro tarjeta {{ tarjeta.n_tarjeta }}</ion-label>
+          <p>{{ tarjeta.nombre_banco }}</p>
+      </ion-list>
+      <ion-button color="dark" class="boton-1" click()="irNuevatarjeta()">+</ion-button>
+      <ion-button (click)="irProductos()" color="dark" class="boton">Mis productos</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

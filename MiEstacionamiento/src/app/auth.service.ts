@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { DataService } from './data.service';
 import { Router } from '@angular/router';
 export interface Tarjeta {
   n_tarjeta: string;
   nombre_banco: string;
+}
+
+export interface User {
+  // ... Otras propiedades del usuario
+  id: number; // Asumiendo que hay un ID único para cada usuario
 }
 
 @Injectable({
@@ -16,30 +21,30 @@ export class AuthService {
   private apiUrl = 'http://localhost:3000';
   private user: any;
   public tipoUsuario!: string;
+  private currentUser: any;
 
   constructor(private http: HttpClient, private dataService: DataService, private router: Router) {}
 
   login(credentials: { nombre_usuario: string; rut: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials)
-        .pipe(
-            tap((response: any) => {
-                console.log('Respuesta del inicio de sesión:', response);
-
-                if (response.message === 'Inicio de sesión exitoso' && response.user && response.tipoUsuario) {
-                    this.setUser(response.user, response.tipoUsuario);
-                    // Guarda el tipo de usuario en localStorage
-                    localStorage.setItem('tipoUsuario', response.tipoUsuario);
-                } else {
-                    console.error('Respuesta de inicio de sesión incompleta:', response);
-                    // Puedes lanzar un error personalizado aquí si lo deseas.
-                }
-            }),
-            catchError(error => {
-                console.error('Error en el inicio de sesión:', error);
-                throw error;
-            })
-        );
-}
+      .pipe(
+        tap((response: any) => {
+          console.log('Respuesta del inicio de sesión:', response);
+  
+          if (response.message === 'Inicio de sesión exitoso' && response.user && response.tipoUsuario) {
+            console.log('Información del usuario:', response.user);
+            this.setUser(response.user, response.tipoUsuario);
+            localStorage.setItem('tipoUsuario', response.tipoUsuario);
+          } else {
+            console.error('Respuesta de inicio de sesión incompleta:', response);
+          }
+        }),
+        catchError(error => {
+          console.error('Error en el inicio de sesión:', error);
+          throw error;
+        })
+      );
+  }
 
 // Agrega esta función para obtener el tipo de usuario desde localStorage
 getTipoUsuarioLocalStorage(): string {
@@ -52,13 +57,28 @@ getTipoUsuarioLocalStorage(): string {
   }
 
   setUser(user: any, tipoUsuario: string | null = null) {
-    this.user = user;
-    this.tipoUsuario = tipoUsuario || ''; // Si no se proporciona tipoUsuario, establece una cadena vacía
+    this.user = user || {};
+    this.tipoUsuario = tipoUsuario || '';
+    this.currentUser = { ...user }; // Almacena una copia del usuario para evitar modificaciones inesperadas
+  
+    if (this.tipoUsuario === 'cliente') {
+      this.currentUser.nombre = user.nombre_cli;
+      this.currentUser.apellido = user.apellido_cli;
+      this.currentUser.rut = user.rut_cli;
+    } else if (this.tipoUsuario === 'dueno_estacionamiento') {
+      this.currentUser.nombre = user.nombre_dueno;
+      this.currentUser.apellido = user.apellido_dueno;
+      this.currentUser.rut = user.rut_dueno;
+    }
   }
 
-  getUser(): any {
-    return this.user;
-  }
+getCurrentUser(): any {
+  return this.user;
+}
+
+getUser(): any {
+  return this.user;
+}
 
   getTipoUsuario(): string {
     return this.tipoUsuario;
@@ -129,7 +149,21 @@ realizarPago(detalle_pago: string): Observable<any> {
 }
 logout() {
   // Implementa la lógica para cerrar la sesión aquí
-  this.setUser(null, null); // Establecer ambos valores como null
+  localStorage.removeItem('tipoUsuario'); // Limpiar el tipo de usuario almacenado
   this.router.navigate(['/home']);
+  this.setUser(null, null); // Establecer ambos valores como null
+}
+
+getTarjetasUsuarioActual(): Observable<Tarjeta[]> {
+  const rutCliente = this.user.rut_cli;
+
+  return this.http.get<Tarjeta[]>(`${this.apiUrl}/tarjetas/${rutCliente}`)
+    .pipe(
+      catchError(error => {
+        console.error('Error al obtener tarjetas:', error);
+        throw error;
+      })
+    );
 }
 }
+

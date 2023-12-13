@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginPage {
   credentials = { nombre_usuario: '', rut: '' };
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private navCtrl: NavController) {}
 
   login() {
     this.authService.login(this.credentials).subscribe(
@@ -22,9 +23,9 @@ export class LoginPage {
             const userType = this.authService.getTipoUsuarioLocalStorage();
 
             if (userType === 'cliente') {
-                this.router.navigate(['/inicio']);
+              this.navCtrl.navigateRoot('/inicio');
             } else if (userType === 'dueno_estacionamiento') {
-                this.router.navigate(['/inicio']);
+              this.navCtrl.navigateRoot('/inicio');
             } else {
                 console.error('Tipo de usuario no reconocido:', userType);
                 // Puedes manejar este caso según tus necesidades

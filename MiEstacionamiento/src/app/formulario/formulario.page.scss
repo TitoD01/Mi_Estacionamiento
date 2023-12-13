@@ -1,8 +1,22 @@
+ion-header{
+    --background: black;
+    ion-toolbar{
+        --background: black;
+        color: white;
+        padding: 20px 0;
+
+        ion-back-button{
+            color: white;
+        }
+    }
+}
+
 ion-card {
     margin: 20px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+    color: #000;
 }
 ion-back-button {
     --color: #000;  /* Color del ícono del botón de retroceso */
@@ -52,11 +66,14 @@ ion-button.paypal {
     text-align: center;
 }
 
-.divider-line {
-    border-top: 1px solid #000;
-}
 
 .divider-text {
     color: #000;
     padding: 0 10px;
+}
+
+.boton{
+    padding: 20px;
+    border-radius: 10px;
+    color: black;
 }

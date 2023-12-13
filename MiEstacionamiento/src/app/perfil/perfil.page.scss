@@ -1,0 +1,65 @@
+ion-header{
+  --background: black;
+  ion-toolbar{
+      --background: black;
+      color: white;
+      padding: 20px 0;
+
+      ion-back-button{
+          color: white;
+      }
+  }
+}
+ion-content {
+    --ion-background-color: white; // Fondo blanco
+    color: black; // Texto negro
+  }
+  
+  ion-card {
+  width: 90%;
+  height: 60%;
+
+    ion-card-content{
+      color: black;
+      --margin-bottom: 30px;
+      h1{
+        margin-top: 30px;
+        margin-left: 10px;
+      }
+
+      ion-list {
+        background-color: white;
+        color: black;
+        border: 1px solid black; /* Puedes ajustar el grosor del borde según tus preferencias */
+        border-radius: 5px; /* Puedes ajustar la esquina del borde según tus preferencias */
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      
+
+      }
+      .boton {
+        text-align: center;
+        border-radius: 10px;
+        color: black;
+        position: fixed;
+        top: 85%;  /* Ajusta la distancia desde la parte inferior según tus necesidades */
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+  .boton-1{
+      padding: 10px;
+      margin-left: 80%;
+      border-radius: 10px;
+      width: 50px;
+      color: black
+  }
+    }
+  
+  ion-card-title,
+  ion-card-subtitle {
+    color: black; // Texto negro
+  }
+  
+

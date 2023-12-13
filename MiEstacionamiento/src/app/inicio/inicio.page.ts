@@ -18,15 +18,18 @@ export class InicioPage implements OnInit {
   }
 
   ngOnInit() {
-    // Obtén la información del usuario al cargar la página
-    const user = this.authService.getUser();
-    console.log('Información del usuario:', user);
-
+    const user = this.authService.getCurrentUser();
+    console.log('Información del usuario en inicio:', user);
+  
+    // Almacena la información del usuario en el servicio AuthService
+    this.authService.setUser(user, this.authService.getTipoUsuarioLocalStorage());
+  
     if (user && user.nombre_cli && user.apellido_cli) {
-      this.welcomeMessage = `Bienvenido ${user.nombre_cli} ${user.apellido_cli}`;
-    }if (user && user.nombre_dueno && user.apellido_dueno) {
-      this.welcomeMessage = `Bienvenido ${user.nombre_dueno} ${user.apellido_dueno}`;
-  }}
+      this.welcomeMessage = `${user.nombre_cli} ${user.apellido_cli}`;
+    } else if (user && user.nombre_dueno && user.apellido_dueno) {
+      this.welcomeMessage = `${user.nombre_dueno} ${user.apellido_dueno}`;
+    }
+  }
 
   search() {
     this.authService.searchByComuna(this.comuna).subscribe(
